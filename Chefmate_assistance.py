@@ -1,11 +1,3 @@
-```python
-"""
-ChefMate AI - A specialized culinary assistant built with Streamlit + LangChain.
-
-Run with:
-    python -m streamlit run Chefmate_assistance.py
-"""
-
 import streamlit as st
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
