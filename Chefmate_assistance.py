@@ -680,4 +680,3 @@ if user_input:
                 "content": reply
             }
         )
-```
