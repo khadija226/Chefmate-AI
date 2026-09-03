@@ -1,3 +1,4 @@
+import textwrap
 import streamlit as st
 from langchain_openai import ChatOpenAI
 from langchain_core.messages import SystemMessage, HumanMessage, AIMessage
@@ -208,9 +209,8 @@ st.set_page_config(
 # =========================================================
 
 st.markdown(
-    """
+    textwrap.dedent("""\
     <style>
-
     .lock-container {
         max-width: 650px;
         margin: 90px auto 30px auto;
@@ -219,33 +219,28 @@ st.markdown(
         border: 1px solid #dddddd;
         border-radius: 18px;
     }
-
     .lock-icon {
         font-size: 65px;
         margin-bottom: 10px;
     }
-
     .lock-title {
         font-size: 32px;
         font-weight: 700;
         margin-bottom: 15px;
     }
-
     .lock-description {
         font-size: 17px;
         line-height: 1.6;
         color: #666666;
     }
-
     .security-note {
         text-align: center;
         color: #777777;
         font-size: 13px;
         margin-top: 15px;
     }
-
     </style>
-    """,
+    """),
     unsafe_allow_html=True
 )
 
@@ -436,41 +431,37 @@ if not st.session_state.connected:
 
     # Hide sidebar while application is locked
     st.markdown(
-        """
+        textwrap.dedent("""\
         <style>
         [data-testid="stSidebar"] {
             display: none;
         }
         </style>
-        """,
+        """),
         unsafe_allow_html=True
     )
 
     # Locked screen
-    st.markdown(
-        """
-        <div class="lock-container">
-
-            <div class="lock-icon">🔐</div>
-
-            <div class="lock-title">
-                ChefMate AI is Locked
-            </div>
-
-            <div class="lock-description">
-                Welcome to ChefMate AI! 🍳
-                <br><br>
-                To use the cooking assistant, enter your own
-                OpenAI API key below.
-                <br><br>
-                The application will remain locked until your
-                API key is successfully verified.
-            </div>
-
-        </div>
-        """,
-        unsafe_allow_html=True
+    # NOTE: every line below is flush-left (no leading spaces).
+    # Streamlit runs st.markdown() through a Markdown parser even
+    # with unsafe_allow_html=True, and Markdown treats any line
+    # indented 4+ spaces as a preformatted code block - which is
+    # why the raw tags were showing up on screen instead of being
+    # rendered as HTML.
+    lock_html = (
+        '<div class="lock-container">'
+        '<div class="lock-icon">🔐</div>'
+        '<div class="lock-title">ChefMate AI is Locked</div>'
+        '<div class="lock-description">'
+        "Welcome to ChefMate AI! 🍳<br><br>"
+        "To use the cooking assistant, enter your own "
+        "OpenAI API key below.<br><br>"
+        "The application will remain locked until your "
+        "API key is successfully verified."
+        "</div>"
+        "</div>"
     )
+    st.markdown(lock_html, unsafe_allow_html=True)
 
     # API key input
     api_key_input = st.text_input(
@@ -488,12 +479,12 @@ if not st.session_state.connected:
     )
 
     st.markdown(
-        """
+        textwrap.dedent("""\
         <div class="security-note">
             🔒 Your API key is used only for your current session.
             It is not written into the application code.
         </div>
-        """,
+        """),
         unsafe_allow_html=True
     )
 
