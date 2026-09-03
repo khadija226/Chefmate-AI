@@ -6,7 +6,7 @@ ChefMate AI understands ingredients, packaged food products, food brands, cuisin
 
 ## 🚀 Live Demo
 
-🔗 **[https://chefmate-ai.streamlit.app/)**
+🔗 **[https://chefmate-ai-by-khadija.streamlit.app/)**
 
 ### 🔑 How to Use
 
